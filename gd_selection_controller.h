@@ -27,8 +27,15 @@ class SelectionController : public Control {
             Column,
             Row
         };
+
+        PackedVector2Array pages;
+
+        void update_begin_end();
+
+
         Array items = Array();
         int selected_index = 0;
+        int scroll_region_size = -1; // -1 to show all (no scroll)
 
         Shape shape = Column;
         bool loop = false;

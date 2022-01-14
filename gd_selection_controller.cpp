@@ -10,6 +10,31 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 #include "gd_keyboard_ui_selection.h"
 
+// Update pages variable, what items are shown depends on if selected is within a certain bound for that page
+void SelectionController::update_begin_end() {
+    if(items.size()> 0) {
+        if(scroll_region_size != -1) {
+            pages.clear();
+            int last = -1;
+            int begin_index_offset = 0;
+            int _srs = scroll_region_size - 1;
+
+            for(int i = 0;i < (items.size()/scroll_region_size);i++) {
+                pages.append(Vector2(i*_srs+begin_index_offset, i*scroll_region_size+_srs));
+                begin_index_offset += 1;
+            }
+            if(pages[MAX(pages.size()-1, 0)].y < items.size()) {
+                pages.append(Vector2(MAX(pages.size()-1, 0).y+1, pages[MAX(pages.size()-1, 0)].y + (items.size() - pages[MAX(pages.size()-1, 0).y])));
+            }
+        }
+        else {
+            pages.clear();
+            pages.append(Vector2(0, items.size()-1));
+        }
+    }
+}
+
+
 void SelectionController::_bind_methods() {
 
 }
