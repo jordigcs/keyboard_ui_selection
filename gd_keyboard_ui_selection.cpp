@@ -28,6 +28,32 @@ SelectionManager::SelectionManager() {
             }
         }
     }
+    settings.accept_action = ProjectSettings::get_singleton()->get_setting("ui_selection/input/accept_action");
+    settings.back_action = ProjectSettings::get_singleton()->get_setting("ui_selection/input/back_action");
+
+    settings.left_action = ProjectSettings::get_singleton()->get_setting("ui_selection/input/left_action");
+    settings.right_action = ProjectSettings::get_singleton()->get_setting("ui_selection/input/right_action");
+    settings.up_action = ProjectSettings::get_singleton()->get_setting("ui_selection/input/up_action");
+    settings.down_action = ProjectSettings::get_singleton()->get_setting("ui_selection/input/down_action");
+}
+
+SelectionController* SelectionManager::get_selection_controller() {
+    if(current_selection_controller_index != -1) {
+        return selection_controllers[current_selection_controller_index];
+    }
+    else {
+        return nullptr;
+    }
+}
+
+void SelectionManager::select_selection_controller(SelectionController controller, int selection_index, bool new_history) {
+    if(new_history) {
+        selection_history.clear();
+    }
+    if(current_selection_controller_index != -1) {
+        selection_controllers[current_selection_controller_index].call("deselect_all");
+    }
+    
 }
 
 void SelectionManager::_bind_methods() {

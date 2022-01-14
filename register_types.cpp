@@ -20,6 +20,24 @@ void register_keyboard_ui_selection_types() {
 
     SelectionManagerPtr = memnew(SelectionManager);
     Engine::get_singleton()->add_singleton(Engine::Singleton("SelectionManager", SelectionManager::get_singleton()));
+
+    // Add Keyboard Selection settings
+    if(Engine::get_singleton()->is_editor_hint()) {
+        if(!ProjectSettings::get_singleton()->has_setting("ui_selection/input/accept_action")) {
+            ProjectSettings::get_singleton()->set_setting("ui_selection/input/accept_action", "ui_accept");
+            ProjectSettings::get_singleton()->set_setting("ui_selection/input/left_action", "ui_left");
+            ProjectSettings::get_singleton()->set_setting("ui_selection/input/right_action", "ui_right");
+            ProjectSettings::get_singleton()->set_setting("ui_selection/input/up_action", "ui_up");
+            ProjectSettings::get_singleton()->set_setting("ui_selection/input/down_action", "ui_down");
+            ProjectSettings::get_singleton()->set_setting("ui_selection/input/back_action", "ui_cancel");
+            ProjectSettings::get_singleton()->set_initial_value("ui_selection/input/accept_action", "ui_accept");
+            ProjectSettings::get_singleton()->set_initial_value("ui_selection/input/left_action", "ui_left");
+            ProjectSettings::get_singleton()->set_initial_value("ui_selection/input/right_action", "ui_right");
+            ProjectSettings::get_singleton()->set_initial_value("ui_selection/input/up_action", "ui_up");
+            ProjectSettings::get_singleton()->set_initial_value("ui_selection/input/down_action", "ui_down");
+            ProjectSettings::get_singleton()->set_initial_value("ui_selection/input/back_action", "ui_cancel");
+        }
+    }
 }
 
 void unregister_keyboard_ui_selection_types() {

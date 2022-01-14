@@ -32,7 +32,19 @@ public:
     bool back_selection_controller();
     void deselect_selection_controller();
 
+    struct SelectionManagerSettings // Holds ProjectSettings
+    {
+        String accept_action = "ui_accept";
+        String back_action = "ui_cancel";
+
+        String left_action = "ui_left";
+        String right_action = "ui_right";
+        String up_action = "ui_up";
+        String down_action = "up_down";
+    } settings;
+
 	std::map<int, SelectionController*> selection_controllers;
+	Array selection_history = Array();
 	int current_selection_controller_index;
 	int global_selection_id_index = 0;
 	//bool bind_nav(Object* nav);

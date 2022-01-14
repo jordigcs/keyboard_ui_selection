@@ -12,6 +12,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 #define GODOT_UI_NAV_H
 
 #include "scene/gui/control.h"
+#include "gd_selectable.h"
 // SelectionController -> Controls the selection of Selectable UIs
 // Only one SelectionController can be active at a time.
 // Use SelectionManager.select_selection_manager(SelectionController controller) to activate.
@@ -28,9 +29,13 @@ class SelectionController : public Control {
             Row
         };
 
+        int current_page = 0;
         PackedVector2Array pages;
 
-        void update_begin_end();
+        void update_pages();
+        void update_current_page();
+        void update_scroll();
+        void update_selection();
 
 
         Array items = Array();
@@ -43,5 +48,6 @@ class SelectionController : public Control {
 
         int id = 0; // Identifier used to differientate different SelectionControllers.
         void _notification(int p_what);
+        void _input(InputEvent event);
 };
 #endif
