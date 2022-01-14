@@ -1,0 +1,14 @@
+# SCsub
+
+Import('env')
+
+sources=[
+    "gd_keyboard_ui_selection.cpp",
+    "gd_selection_controller.cpp",
+    "gd_selectable.cpp",
+    "register_types.cpp",
+]
+
+module_env = env.Clone()
+module_env.add_source_files(module_env.modules_sources, sources)
+module_env.Append(CPPPATH=["."])
